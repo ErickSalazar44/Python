@@ -3,8 +3,8 @@
 # Context Managers
 
 
-
 # Anatomía del bloque completo en Python
+
 
 def procesar_transaccion(monto: float, saldo: float) -> None:
     # Intentar
@@ -13,7 +13,7 @@ def procesar_transaccion(monto: float, saldo: float) -> None:
         if monto > saldo:
             # En JS usarías: throw new Error()
             raise ValueError("Fondos insuficientes para realizar la operación.")
-        
+
         nuevo_saldo = saldo - monto
 
     # Catch - Manejo de errores específicos
@@ -34,9 +34,10 @@ def procesar_transaccion(monto: float, saldo: float) -> None:
     finally:
         # Corre SIEMPRE (limpieza de recursos)
         print("Cerrando conexión segura con el banco...")
-        
-        
-# Ejercicio: 
+
+
+# Ejercicio:
+
 
 def dividir_cuenta_cabbios(ticket_total: float, num_person: int) -> None:
 
@@ -46,32 +47,36 @@ def dividir_cuenta_cabbios(ticket_total: float, num_person: int) -> None:
         result = ticket_total / num_person
 
     except ZeroDivisionError:
-        # Por si intentan dividir entre 0 
+        # Por si intentan dividir entre 0
         print("No se puede dividir la cuenta entre cero personas.")
-    
+
     else:
         print(f"Total peaple have pay: S/.{result}")
-    
+
     finally:
         print("Operate box final.")
+
 
 # Test 1
 intento = dividir_cuenta_cabbios(120, 3)
 
 
-
 class LimitePedidoExcedidoError(Exception):
     """Excepción lanzada cuando el limite del pedido exedio"""
+
     def __init__(self, cantidad_platos: int):
         self.cantidad_platos = cantidad_platos
 
-        super().__init__(f"Limite de pedido excedido: cantidad de intentos: {cantidad_platos}")
+        super().__init__(
+            f"Limite de pedido excedido: cantidad de intentos: {cantidad_platos}"
+        )
+
 
 def registrar_pedido_mesa(cantidad_platos: int) -> None:
     try:
         if cantidad_platos > 20:
             raise LimitePedidoExcedidoError(cantidad_platos)
-        
+
     except LimitePedidoExcedidoError as error:
         print(f"Operación incorrecta {error}")
         print(f"Auditoria log -> Solicito: {error.cantidad_platos}")
@@ -81,20 +86,3 @@ def registrar_pedido_mesa(cantidad_platos: int) -> None:
 
 
 intento_2 = registrar_pedido_mesa(30)
-
-
-# Ejercicio 3
-
-class GestorImpresora:
-    def __init__(self):
-        pass
-    
-    def __enter__(self):
-        print("Impresa conectada y en Línea")
-    
-    def imprimir_ticket(self, txt: str):
-        print(f"Imprimiento: {txt}")
-    
-    def __exit__(self, exc_type, exc, tb):
-        print(f"Conexión con la impresora liberada. {exc_type} - {exc} - {tb}")
-
